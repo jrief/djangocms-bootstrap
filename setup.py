@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 from setuptools import setup, find_packages
-from nodebow import __version__
+from cms_bootstrap3 import __version__
 
 
 CLASSIFIERS = [
