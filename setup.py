@@ -25,7 +25,7 @@ def read(fname):
 
 setup(
     name='djangocms-bootstrap3',
-    version='0.0.1',
+    version=__version__,
     description='Templates and templatetags to be used with djangoCMS and Bootstrap3.',
     author='Jacob Rief',
     author_email='jacob.rief@gmail.com',
