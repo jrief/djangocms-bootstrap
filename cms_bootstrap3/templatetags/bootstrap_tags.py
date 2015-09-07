@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 from django import template
 from menus.menu_pool import menu_pool
-from classytags.arguments import IntegerArgument, StringArgument, Argument
+from classytags.arguments import IntegerArgument, StringArgument, Argument, Flag
 from classytags.helpers import InclusionTag
 from classytags.core import Options
 from menus.templatetags.menu_tags import flatten, remove
@@ -56,9 +56,10 @@ class MainMenu(InclusionTag):
         StringArgument('template', default='bootstrap/menu/navbar.html', required=False),
         StringArgument('namespace', default=None, required=False),
         StringArgument('root_id', default=None, required=False),
+        Flag('embody_root', default=False, true_values=['embody_root']),
     )
 
-    def get_context(self, context, template, namespace, root_id):
+    def get_context(self, context, template, namespace, root_id, embody_root):
         try:
             # If there's an exception (500), default context_processors may not be called.
             request = context['request']
@@ -77,6 +78,9 @@ class MainMenu(InclusionTag):
                     remove_parent.parent = None
                 start_level = node.level + 1
                 nodes = flatten(nodes)
+                if embody_root:
+                    node.level = start_level
+                    nodes.insert(0, node)
             else:
                 nodes = []
         children = cut_levels(nodes, start_level)
@@ -93,9 +97,22 @@ class MainMenuBelowId(MainMenu):
         Argument('root_id', default=None, required=False),
         StringArgument('template', default='bootstrap/menu/navbar.html', required=False),
         StringArgument('namespace', default=None, required=False),
+        Flag('embody_root', default=False, true_values=['embody_root']),
     )
 
 register.tag(MainMenuBelowId)
+
+
+class MainMenuEmbodyId(MainMenu):
+    name = 'main_menu_embody_id'
+    options = Options(
+        Argument('root_id', default=None, required=False),
+        StringArgument('template', default='bootstrap/menu/navbar.html', required=False),
+        StringArgument('namespace', default=None, required=False),
+        Flag('embody_root', default=True, false_values=['skip_root']),
+    )
+ 
+register.tag(MainMenuEmbodyId)
 
 
 class Paginator(InclusionTag):
