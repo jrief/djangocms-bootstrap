@@ -1,4 +1,4 @@
-<!-- bootstrap breadcrumb start -->
+<!-- bootstrap breadcrumb start -->{% spaceless %}
 {% for ance in ancestors %}
 	{% if not forloop.last or extra_ance %}
 	<li><a href="{{ ance.get_absolute_url }}">{{ ance.get_menu_title }}</a></li>
@@ -9,4 +9,4 @@
 {% if extra_ance %}
 	<li class="active">{{ extra_ance }}</li>
 {% endif %}
-<!-- bootstrap breadcrumb end -->
+<!-- bootstrap breadcrumb end -->{% endspaceless %}
