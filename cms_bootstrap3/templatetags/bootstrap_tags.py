@@ -111,7 +111,7 @@ class MainMenuEmbodyId(MainMenu):
         StringArgument('namespace', default=None, required=False),
         Flag('embody_root', default=True, false_values=['skip_root']),
     )
- 
+
 register.tag(MainMenuEmbodyId)
 
 
