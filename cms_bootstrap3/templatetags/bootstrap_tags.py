@@ -56,10 +56,12 @@ class MainMenu(InclusionTag):
         StringArgument('template', default='bootstrap/menu/navbar.html', required=False),
         StringArgument('namespace', default=None, required=False),
         StringArgument('root_id', default=None, required=False),
+        IntegerArgument('offset', default=0, required=False),
+        IntegerArgument('limit', default=100, required=False),
         Flag('embody_root', default=False, true_values=['embody_root']),
     )
 
-    def get_context(self, context, template, namespace, root_id, embody_root):
+    def get_context(self, context, template, namespace, root_id, offset, limit, embody_root):
         try:
             # If there's an exception (500), default context_processors may not be called.
             request = context['request']
@@ -85,6 +87,7 @@ class MainMenu(InclusionTag):
                 nodes = []
         children = cut_levels(nodes, start_level)
         children = menu_pool.apply_modifiers(children, request, namespace, root_id, post_cut=True)
+        children = children[offset:offset + limit]
         context.update({'children': children, 'template': template})
         return context
 
@@ -96,6 +99,8 @@ class MainMenuBelowId(MainMenu):
     options = Options(
         Argument('root_id', default=None, required=False),
         StringArgument('template', default='bootstrap/menu/navbar.html', required=False),
+        IntegerArgument('offset', default=0, required=False),
+        IntegerArgument('limit', default=100, required=False),
         StringArgument('namespace', default=None, required=False),
         Flag('embody_root', default=False, true_values=['embody_root']),
     )
@@ -108,6 +113,8 @@ class MainMenuEmbodyId(MainMenu):
     options = Options(
         Argument('root_id', default=None, required=False),
         StringArgument('template', default='bootstrap/menu/navbar.html', required=False),
+        IntegerArgument('offset', default=0, required=False),
+        IntegerArgument('limit', default=100, required=False),
         StringArgument('namespace', default=None, required=False),
         Flag('embody_root', default=True, false_values=['skip_root']),
     )
