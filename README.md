@@ -10,6 +10,10 @@ page tree into a menu structure suitable for the navbar in Bootstrap3.
 
 
 ## CHANGELOG
+- 0.3.1
+  * Fix: Use ``uib-dropdown``rather than ``dropdown`` to be compatible with
+    **angular-ui-bootstrap** version 0.14 and later.
+
 - 0.3.0
   * The templatetags ``main_menu``, ``main_menu_below_id`` and ``main_menu_embody_id`` now accept
     two optional values: ``offset`` (default 0) and ``limit`` (default 100). With these it is
