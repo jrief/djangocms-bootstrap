@@ -69,7 +69,12 @@ class MainMenu(InclusionTag):
             return {'template': 'menu/empty.html'}
 
         start_level = 0
-        nodes = menu_pool.get_nodes(request, namespace, root_id)
+        menu_renderer = context.get('cms_menu_renderer')
+        
+        if not menu_renderer:
+            menu_renderer = menu_pool.get_renderer(request)
+        
+        nodes = menu_renderer.get_nodes(namespace, root_id)
         if root_id:
             # find the root id and cut the nodes
             id_nodes = menu_pool.get_nodes_by_attribute(nodes, "reverse_id", root_id)
@@ -86,7 +91,7 @@ class MainMenu(InclusionTag):
             else:
                 nodes = []
         children = cut_levels(nodes, start_level)
-        children = menu_pool.apply_modifiers(children, request, namespace, root_id, post_cut=True)
+        children = menu_renderer.apply_modifiers(children, namespace, root_id, post_cut=True)
         children = children[offset:offset + limit]
         context.update({'children': children, 'template': template})
         return context
