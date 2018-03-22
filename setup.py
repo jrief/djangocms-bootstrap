@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
 from setuptools import setup, find_packages
 from cms_bootstrap3 import __version__
 try:
