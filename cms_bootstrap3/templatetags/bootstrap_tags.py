@@ -62,7 +62,7 @@ class MainMenu(InclusionTag):
         Argument('next_page', default=None, required=False),
     )
 
-    def get_context(self, context, template, namespace, root_id, offset, limit, embody_root):
+    def get_context(self, context, template, namespace, root_id, offset, limit, embody_root, next_page):
         try:
             # If there's an exception (500), default context_processors may not be called.
             request = context['request']
