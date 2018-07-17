@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
+import io
 from setuptools import setup, find_packages
 from cms_bootstrap3 import __version__
-try:
-    from pypandoc import convert
-except ImportError:
-    def convert(filename, fmt):
-        with open(filename) as fd:
-            return fd.read()
+
+
+def readfile(filename):
+    with io.open(filename, encoding='utf-8') as fd:
+        return fd.read()
 
 
 CLASSIFIERS = [
@@ -29,16 +31,19 @@ CLASSIFIERS = [
 setup(
     name='djangocms-bootstrap3',
     version=__version__,
-    description='Templates and templatetags to be used with djangoCMS and Bootstrap3.',
+    description='Templates and templatetags to be used with django-CMS and Bootstrap3.',
     author='Jacob Rief',
     author_email='jacob.rief@gmail.com',
     url='https://github.com/jrief/djangocms-bootstrap3',
     packages=find_packages(),
-    install_requires=[],
+    install_requires=[
+        'django-cms>=3.4,<=3.5',
+    ],
     license='LICENSE-MIT',
     platforms=['OS Independent'],
     classifiers=CLASSIFIERS,
-    long_description=convert('README.md', 'rst'),
+    long_description=readfile('README.md'),
+    long_description_content_type='text/markdown',
     include_package_data=True,
     zip_safe=False
 )
