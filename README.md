@@ -10,6 +10,13 @@ page tree into a menu structure suitable for the navbar in Bootstrap3.
 
 
 ## CHANGELOG
+- 0.4
+  * Add support for django-CMS version 3.5
+  * Replace `dropdown`, `dropdown-toggle` by `uib-dropdown`, `uib-dropdown-toggle` to be compatible
+    with **angular-ui-bootstrap** version 0.14 and later.
+  * In hamburger menu, replace `<button>`- by `<a>`-tag, because `ng-click` didn't fire properly.
+  * Make use of `uib-collapse` for mobile menus. This adds an animation.
+
 - 0.3.2
   * In Navbar, render `get_menu_title` as safe string in order to allow HTML tags in
     Mune Title.
