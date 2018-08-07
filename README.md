@@ -1,15 +1,18 @@
 # djangocms-bootstrap3
 
-Some templates and templatetags to be used with django-CMS and Bootstrap3
+Some templates and templatetags to be used with django-CMS and Bootstrap3.
 
 Django-CMS is frontend agnostic, which is a good thing. However, in combination with Bootstrap3
 the menu structure does not quite fit. This is because Bootstrap3 only allows one nested menu level.
 
-Therefore **djangocms-bootstrap3** adds a few modified templatetag, which render the existing
+Therefore **djangocms-bootstrap3** adds a few modified templatetags, which render the existing
 page tree into a menu structure suitable for the navbar in Bootstrap3.
 
 
 ## CHANGELOG
+- 0.4.1
+  * Fix versions in `install_requires` of `setup.py`.
+
 - 0.4
   * Add support for django-CMS version 3.5
   * Replace `dropdown`, `dropdown-toggle` by `uib-dropdown`, `uib-dropdown-toggle` to be compatible

@@ -2,14 +2,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import io
 from setuptools import setup, find_packages
 from cms_bootstrap3 import __version__
 
 
-def readfile(filename):
-    with io.open(filename, encoding='utf-8') as fd:
-        return fd.read()
+with open('README.md', encoding='utf-8') as fh:
+    long_description = fh.read()
 
 
 CLASSIFIERS = [
@@ -37,12 +35,12 @@ setup(
     url='https://github.com/jrief/djangocms-bootstrap3',
     packages=find_packages(),
     install_requires=[
-        'django-cms>=3.4,<=3.5',
+        'django-cms>=3.4,<=3.6',
     ],
     license='LICENSE-MIT',
     platforms=['OS Independent'],
     classifiers=CLASSIFIERS,
-    long_description=readfile('README.md'),
+    long_description=long_description,
     long_description_content_type='text/markdown',
     include_package_data=True,
     zip_safe=False
