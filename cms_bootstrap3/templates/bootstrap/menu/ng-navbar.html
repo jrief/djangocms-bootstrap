@@ -1,8 +1,13 @@
+{% spaceless %}
 {% for child in children %}
-<li class="{% if child.selected or child.ancestor %}active{% endif %}{% if child.children %} dropdown{% endif %}"{% if child.children %} dropdown=""{% endif %}>
-	{% if child.children %}
-	<a href="{{ child.get_absolute_url }}" class="dropdown-toggle" uib-dropdown-toggle>{{ child.get_menu_title|safe }} <b class="caret"></b></a>
-	<ul class="dropdown-menu">
+	{% if child.is_leaf_node %}
+<li{% if child.selected %} class="active"{% endif %}>
+	<a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title|safe }}</a>
+</li>
+	{% else %}
+<li uib-dropdown class="dropdown{% if child.selected or child.ancestor %} active{% endif %}">
+	<a uib-dropdown-toggle class="dropdown-toggle" role="button" aria-haspopup="true">{{ child.get_menu_title|safe }} <b class="caret"></b></a>
+	<ul uib-dropdown-menu class="dropdown-menu" role="menu">
 		{% if child.visible %}
 		<li{% if child.selected %} class="active"{% endif %}>
 			<a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}"><strong>{{ child.get_menu_title|safe }}</strong></a>
@@ -14,13 +19,12 @@
 		recursion has been dropped intentionally. Read https://github.com/twbs/bootstrap/pull/6342 for details.
 		{% endcomment %}
 		{% for grandchild in child.children %}
-			<li{% if grandchild.selected %} class="active"{% endif %}>
-				<a href="{{ grandchild.attr.redirect_url|default:grandchild.get_absolute_url }}">{{ grandchild.get_menu_title|safe }}</a>
-			</li>
+		<li{% if grandchild.selected %} class="active"{% endif %}>
+			<a href="{{ grandchild.attr.redirect_url|default:grandchild.get_absolute_url }}">{{ grandchild.get_menu_title|safe }}</a>
+		</li>
 		{% endfor %}
 	</ul>
-	{% else %}
-	<a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title|safe }}</a>
-	{% endif %}
 </li>
+	{% endif %}
 {% endfor %}
+{% endspaceless %}
