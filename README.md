@@ -10,6 +10,9 @@ page tree into a menu structure suitable for the navbar in Bootstrap3.
 
 
 ## CHANGELOG
+- 0.4.2
+  * adopted navbar to work with `angular-ui-bootstrap` version 2.5 and later.
+
 - 0.4.1
   * Fix versions in `install_requires` of `setup.py`.
 

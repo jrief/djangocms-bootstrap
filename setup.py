@@ -23,6 +23,8 @@ CLASSIFIERS = [
     'Programming Language :: Python :: 3.4',
     'Programming Language :: Python :: 3.5',
     'Programming Language :: Python :: 3.6',
+    'Framework :: Django :: 1.10',
+    'Framework :: Django :: 1.11',
 ]
 
 
@@ -35,7 +37,7 @@ setup(
     url='https://github.com/jrief/djangocms-bootstrap3',
     packages=find_packages(),
     install_requires=[
-        'django-cms>=3.4,<=3.6',
+        'django-cms>3.4,<3.6',
     ],
     license='LICENSE-MIT',
     platforms=['OS Independent'],
