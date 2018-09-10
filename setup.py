@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 from cms_bootstrap3 import __version__
 
 
-with open('README.md', encoding='utf-8') as fh:
+with open('README.md') as fh:
     long_description = fh.read()
 
 
