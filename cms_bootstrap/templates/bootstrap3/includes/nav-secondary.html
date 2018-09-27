@@ -1,0 +1,10 @@
+{% load menu_tags i18n %}
+{% get_available_languages as languages %}
+<nav class="secondary">
+	<div class="container">
+		<ul class="nav navbar-nav navbar-right">
+{% if languages|length > 1 %}{% language_chooser "bootstrap3/includes/language-chooser.html" %}{% endif %}
+			<li><a href="#">{% trans "Customer Account" %}</a></li>
+		</ul>
+	</div>
+</nav>
