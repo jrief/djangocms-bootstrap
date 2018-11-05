@@ -1,0 +1,15 @@
+<!-- bootstrap breadcrumb start -->{% spaceless %}
+{% with item_class=item_class|default:"breadcrumb-item" %}
+{% for ance in ancestors %}
+	{% if not forloop.last or extra_ance %}
+	<li class="{{ item_class }}"><a href="{{ ance.get_absolute_url }}">{{ ance.get_menu_title|safe }}</a></li>
+	{% else %}
+	<li class="{{ item_class }} active">{{ ance.get_menu_title|safe }}</li>
+	{% endif %}
+{% endfor %}
+{% if extra_ance %}
+	<li class="{{ item_class }} active">{{ extra_ance }}</li>
+{% endif %}
+<!-- bootstrap breadcrumb end -->
+{% endwith %}
+{% endspaceless %}

@@ -1,15 +1,21 @@
-# djangocms-bootstrap3
+# djangocms-bootstrap
 
-Some templates and templatetags to be used with django-CMS and Bootstrap3.
+Some templates and templatetags to be used with django-CMS and Bootstrap3/Bootstrap4.
 
-Django-CMS is frontend agnostic, which is a good thing. However, in combination with Bootstrap3
-the menu structure does not quite fit. This is because Bootstrap3 only allows one nested menu level.
+Django-CMS is frontend agnostic, which is a good thing. However, in combination with Bootstrap3/4
+the menu structure does not quite fit. This is because Bootstrap3/4 only allows one nested menu level.
 
-Therefore **djangocms-bootstrap3** adds a few modified templatetags, which render the existing
-page tree into a menu structure suitable for the navbar in Bootstrap3.
+Therefore **djangocms-bootstrap** adds a few modified templatetags, which render the existing
+page tree into a menu structure suitable for the navbar in Bootstrap3/4.
 
 
 ## CHANGELOG
+- 1.0
+  * In addition to **Bootstrap-3** add support for **Bootstrap-4**. This requires to be more generic, therefore also
+  * rename project from `djangocms-bootstrap3` to `djangocms-bootstrap` in your requirements.
+  * rename Django app from `cms_bootstrap3` to `cms_bootstrap` in your `INSTALLED_APPS`.
+  * rename in existing templates `bootstrap/…` to `bootstrap3/…`.
+
 - 0.4.2
   * adopted navbar to work with `angular-ui-bootstrap` version 2.5 and later.
 

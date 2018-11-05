@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 from setuptools import setup, find_packages
-from cms_bootstrap3 import __version__
+from cms_bootstrap import __version__
 
 
 with open('README.md') as fh:
@@ -29,12 +29,12 @@ CLASSIFIERS = [
 
 
 setup(
-    name='djangocms-bootstrap3',
+    name='djangocms-bootstrap',
     version=__version__,
-    description='Templates and templatetags to be used with django-CMS and Bootstrap3.',
+    description='Templates and templatetags to be used with django-CMS and Bootstrap3/4.',
     author='Jacob Rief',
     author_email='jacob.rief@gmail.com',
-    url='https://github.com/jrief/djangocms-bootstrap3',
+    url='https://github.com/jrief/djangocms-bootstrap',
     packages=find_packages(),
     install_requires=[
         'django-cms>3.4,<3.6',

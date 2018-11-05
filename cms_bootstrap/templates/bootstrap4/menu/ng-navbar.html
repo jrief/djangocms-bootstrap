@@ -1,0 +1,35 @@
+{% load i18n %}
+{% spaceless %}
+{% with item_class=item_class|default:"nav-item" %}
+{% for child in children %}
+	{% if child.is_leaf_node %}
+<li class="{% if child.selected %}active {% endif %}{{ item_class }}">
+	<a class="nav-link" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title|safe }}</a>
+</li>
+	{% else %}
+<li uib-dropdown class="dropdown{% if child.selected or child.ancestor %} active{% endif %} {{ item_class }}">
+	<a uib-dropdown-toggle class="nav-link dropdown-toggle" href="" role="button" aria-haspopup="true" aria-expanded="false">{{ child.get_menu_title|safe }}</a>
+	<div uib-dropdown-menu class="dropdown-menu" role="menu">
+		{% if child.visible %}
+		<a class="dropdown-item{% if child.selected %} active{% endif %}" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}" role="menuitem">
+			<strong>{{ child.get_menu_title|safe }}</strong>
+			{% if child.selected %}<span class="sr-only">{% trans "(current)" %}</span>{% endif %}
+		</a>
+		<div class="dropdown-divider" role="separator"></div>
+		{% endif %}
+		{% comment %}
+		Bootstrap4 does not support submenues, so levels > 1 can't be handled be the main_menu tag and therfore
+		recursion has been dropped intentionally. Read https://github.com/twbs/bootstrap/pull/6342 for details.
+		{% endcomment %}
+		{% for grandchild in child.children %}
+		<a class="dropdown-item {% if grandchild.selected %} active{% endif %}" href="{{ grandchild.attr.redirect_url|default:grandchild.get_absolute_url }}" role="menuitem">
+			{{ grandchild.get_menu_title|safe }}
+			{% if grandchild.selected %}<span class="sr-only">{% trans "(current)" %}</span>{% endif %}
+		</a>
+		{% endfor %}
+	</div>
+</li>
+	{% endif %}
+{% endfor %}
+{% endwith %}
+{% endspaceless %}
