@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from django.conf import settings
 from django import template
 from menus.menu_pool import menu_pool
 from classytags.arguments import IntegerArgument, StringArgument, Argument, Flag
@@ -9,6 +10,10 @@ from menus.templatetags.menu_tags import flatten, remove
 
 register = template.Library()
 
+if 'cmsplugin_cascade.bootstrap3' in settings.CMSPLUGIN_CASCADE_PLUGINS:
+    BOOTSTRAP="3"
+else:
+    BOOTSTRAP="4"
 
 def cut_levels(nodes, start_level):
     """
@@ -53,7 +58,7 @@ class MainMenu(InclusionTag):
     template = 'menu/dummy.html'
 
     options = Options(
-        StringArgument('template', default='bootstrap/menu/navbar.html', required=False),
+        StringArgument('template', default='bootstrap{}/menu/navbar.html'.format( BOOTSTRAP), required=False),
         StringArgument('namespace', default=None, required=False),
         StringArgument('root_id', default=None, required=False),
         IntegerArgument('offset', default=0, required=False),
@@ -108,7 +113,7 @@ class MainMenuBelowId(MainMenu):
     name = 'main_menu_below_id'
     options = Options(
         Argument('root_id', default=None, required=False),
-        StringArgument('template', default='bootstrap/menu/navbar.html', required=False),
+        StringArgument('template', default='bootstrap{}/menu/navbar.html'.format( BOOTSTRAP), required=False),
         IntegerArgument('offset', default=0, required=False),
         IntegerArgument('limit', default=100, required=False),
         StringArgument('namespace', default=None, required=False),
@@ -123,7 +128,7 @@ class MainMenuEmbodyId(MainMenu):
     name = 'main_menu_embody_id'
     options = Options(
         Argument('root_id', default=None, required=False),
-        StringArgument('template', default='bootstrap/menu/navbar.html', required=False),
+        StringArgument('template', default='bootstrap{}/menu/navbar.html'.format( BOOTSTRAP), required=False),
         IntegerArgument('offset', default=0, required=False),
         IntegerArgument('limit', default=100, required=False),
         StringArgument('namespace', default=None, required=False),
@@ -136,7 +141,7 @@ register.tag(MainMenuEmbodyId)
 
 class Paginator(InclusionTag):
     name = 'paginator'
-    template = 'bootstrap/components/paginator.html'
+    template = 'bootstrap{}/components/paginator.html'.format( BOOTSTRAP)
 
     options = Options(
         IntegerArgument('page_range', default=5, required=False),
