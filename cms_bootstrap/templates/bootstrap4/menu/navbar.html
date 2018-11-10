@@ -1,27 +1,23 @@
 {% load bootstrap_tags %}
 {% for child in children %}
-<li class="{% if child.selected or child.ancestor %}active{% endif %}{% if child.children %} dropdown{% endif %}">
+<li class="nav-item {% if child.selected or child.ancestor %}active{% endif %}{% if child.children %} dropdown{% endif %}">
 	{% if child.children %}
-	<a href="{{ child.get_absolute_url }}" class="dropdown-toggle" data-toggle="dropdown">{{ child.get_menu_title|safe }} <b class="caret"></b></a>
-	<ul class="dropdown-menu">
-		{% if child.visible %}
-		<li class="{% if child.selected %}active{% endif %}">
-			<a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}"><strong>{{ child.get_menu_title|safe }}</strong></a>
-		</li>
-		<li class="divider"></li>
+	<a href="{{ child.get_absolute_url }}" class="nav-link link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ child.get_menu_title|safe }} </a>
+	<div class="dropdown-menu">
+		{% if child.visible %} 
+		<a  class="dropdown-item" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}"  ><strong>{{ child.get_menu_title|safe}}</strong></a>
+		<div class="dropdown-divider"></div>
 		{% endif %}
 		{% comment %}
-		Bootsrap4 does not support submenues, so levels > 1 can't be handled be the main_menu tag and therfore
-		recursion has been dropped intentionally. Read https://github.com/twbs/bootstrap/pull/6342 for details.
+		Bootsrap4 does not support submenues, This feature was purposefully removed by Creator of Bootstrap as he feels 
+		that submenus aren't great UX, particularly on mobile. so levels > 1 can't be handled be the main_menu tag and therfore
+		recursion has been dropped intentionally https://github.com/twbs/bootstrap/issues/16387
 		{% endcomment %}
 		{% for grandchild in child.children %}
-			<li{% if grandchild.selected %} class="active"{% endif %}>
-				<a href="{{ grandchild.attr.redirect_url|default:grandchild.get_absolute_url }}">{{ grandchild.get_menu_title|safe }}</a>
-			</li>
+		<a {% if grandchild.selected %}{% endif %} class="dropdown-item" href="{{ grandchild.attr.redirect_url|default:grandchild.get_absolute_url }}">{{ grandchild.get_menu_title|safe }}</a>
 		{% endfor %}
-	</ul>
 	{% else %}
-	<a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title|safe }}</a>
-	{% endif %}
+	<a class="nav-link link" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title|safe }}<span class="sr-only">(current)</span></a>
+{% endif %}
 </li>
 {% endfor %}
