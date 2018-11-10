@@ -10,7 +10,6 @@
 		{% endif %}
 		{% comment %}
 		Bootsrap4 does not support submenues, This feature was purposefully removed by Creator of Bootstrap as he feels 
-		that submenus aren't great UX, particularly on mobile. so levels > 1 can't be handled be the main_menu tag and therfore
 		recursion has been dropped intentionally https://github.com/twbs/bootstrap/issues/16387
 		{% endcomment %}
 		{% for grandchild in child.children %}
