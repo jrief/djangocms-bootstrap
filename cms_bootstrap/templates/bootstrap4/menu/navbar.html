@@ -9,8 +9,8 @@
 		<div class="dropdown-divider"></div>
 		{% endif %}
 		{% comment %}
-		Bootsrap4 does not support submenues, This feature was purposefully removed by Creator of Bootstrap as he feels 
-		recursion has been dropped intentionally https://github.com/twbs/bootstrap/issues/16387
+		Bootsrap4 does not support submenues, so levels > 1 can't be handled be the main_menu tag and therfore
+		recursion has been dropped intentionally. Read https://github.com/twbs/bootstrap/pull/6342 for details.
 		{% endcomment %}
 		{% for grandchild in child.children %}
 		<a {% if grandchild.selected %}{% endif %} class="dropdown-item" href="{{ grandchild.attr.redirect_url|default:grandchild.get_absolute_url }}">{{ grandchild.get_menu_title|safe }}</a>
