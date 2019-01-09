@@ -1,11 +1,12 @@
 {% load bootstrap_tags %}
+{% spaceless %}
 {% for child in children %}
-<li class="nav-item {% if child.selected or child.ancestor %}active{% endif %}{% if child.children %} dropdown{% endif %}">
+<li class="nav-item{% if child.selected or child.ancestor %} active{% endif %}{% if child.children %} dropdown{% endif %}">
 	{% if child.children %}
-	<a href="{{ child.get_absolute_url }}" class="nav-link link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ child.get_menu_title|safe }} </a>
-	<div class="dropdown-menu">
-		{% if child.visible %} 
-		<a  class="dropdown-item" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}"  ><strong>{{ child.get_menu_title|safe}}</strong></a>
+	<a class="nav-link dropdown-toggle" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ child.get_menu_title|safe }} </a>
+	<div class="dropdown-menu" role="menu" aria-labelledby="navbarDropdown">
+		{% if child.visible %}
+		<a class="dropdown-item" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}"><strong>{{ child.get_menu_title|safe}}</strong></a>
 		<div class="dropdown-divider"></div>
 		{% endif %}
 		{% comment %}
@@ -13,10 +14,11 @@
 		recursion has been dropped intentionally. Read https://github.com/twbs/bootstrap/pull/6342 for details.
 		{% endcomment %}
 		{% for grandchild in child.children %}
-		<a {% if grandchild.selected %}{% endif %} class="dropdown-item" href="{{ grandchild.attr.redirect_url|default:grandchild.get_absolute_url }}">{{ grandchild.get_menu_title|safe }}</a>
+		<a class="dropdown-item{% if grandchild.selected %} active{% endif %}" href="{{ grandchild.attr.redirect_url|default:grandchild.get_absolute_url }}" role="menuitem">{{ grandchild.get_menu_title|safe }}</a>
 		{% endfor %}
 	{% else %}
-	<a class="nav-link link" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title|safe }}<span class="sr-only">(current)</span></a>
-{% endif %}
+	<a class="nav-link" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title|safe }}<span class="sr-only">(current)</span></a>
+	{% endif %}
 </li>
 {% endfor %}
+{% endspaceless %}
