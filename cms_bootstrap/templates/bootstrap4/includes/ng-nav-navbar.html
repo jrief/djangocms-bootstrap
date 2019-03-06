@@ -5,7 +5,7 @@
 	{% block navbar-brand %}<a class="navbar-brand" href="/">Brand</a>{% endblock %}
 
 	{% block navbar-toggler %}
-	<button class="navbar-toggler" type="button" ng-click="isNavCollapsed = !isNavCollapsed" aria-expanded="false" aria-label="{% trans 'Toggle navigation' %}">
+	<button class="navbar-toggler" type="button" ng-click="toggleNavCollapse()" aria-label="{% trans 'Toggle navigation' %}">
 		<span class="navbar-toggler-icon"></span>
 	</button>
 	{% endblock navbar-toggler %}
