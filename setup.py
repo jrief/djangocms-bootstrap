@@ -27,11 +27,10 @@ CLASSIFIERS = [
     'Framework :: Django :: 1.11',
 ]
 
-
 setup(
     name='djangocms-bootstrap',
     version=__version__,
-    description='Templates and templatetags to be used with django-CMS and Bootstrap3/4.',
+    description='Templates and templatetags to be used with django-CMS with Bootstrap3 or Bootstrap4.',
     author='Jacob Rief',
     author_email='jacob.rief@gmail.com',
     url='https://github.com/jrief/djangocms-bootstrap',
@@ -39,8 +38,9 @@ setup(
     install_requires=[
         'django-cms>3.4,<3.6',
     ],
-    license='LICENSE-MIT',
+    license='MIT',
     platforms=['OS Independent'],
+    keywords=['django-cms', 'bootstrap-3', 'bootstrap-4'],
     classifiers=CLASSIFIERS,
     long_description=long_description,
     long_description_content_type='text/markdown',
