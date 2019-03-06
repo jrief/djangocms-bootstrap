@@ -2,4 +2,5 @@ include LICENSE-MIT
 include README.md
 include setup.py
 recursive-include cms_bootstrap/templates *
+recursive-include cms_bootstrap/static *
 recursive-exclude * *.pyc

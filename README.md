@@ -14,6 +14,9 @@ page tree into a menu structure suitable for the navbar in Bootstrap3/4.
 [![Twitter Follow](https://img.shields.io/twitter/follow/shields_io.svg?style=social&label=Follow&maxAge=2592000)](https://twitter.com/jacobrief)
 
 ## CHANGELOG
+- 1.0.2
+  * Add AngularJS directive for toggling navbar in responsive mode.
+
 - 1.0.1
   * Fix navbar and menu templates if used in combination with **Bootstrap-4** and jQuery.
 
