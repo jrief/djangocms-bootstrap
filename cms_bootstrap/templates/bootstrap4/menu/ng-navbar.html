@@ -12,7 +12,7 @@
 	<div uib-dropdown-menu class="dropdown-menu" role="menu">
 		{% if child.visible %}
 		<a class="dropdown-item{% if child.selected %} active{% endif %}" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}" role="menuitem">
-			<strong>{{ child.get_menu_title|safe }}</strong>
+			{{ child.get_menu_title|safe }}
 			{% if child.selected %}<span class="sr-only">{% trans "(current)" %}</span>{% endif %}
 		</a>
 		<div class="dropdown-divider" role="separator"></div>

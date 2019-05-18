@@ -6,7 +6,7 @@
 	<a class="nav-link dropdown-toggle" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ child.get_menu_title|safe }} </a>
 	<div class="dropdown-menu" role="menu" aria-labelledby="navbarDropdown">
 		{% if child.visible %}
-		<a class="dropdown-item" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}"><strong>{{ child.get_menu_title|safe}}</strong></a>
+		<a class="dropdown-item" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title|safe}}</a>
 		<div class="dropdown-divider"></div>
 		{% endif %}
 		{% comment %}
