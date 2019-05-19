@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+
 from django.conf import settings
 from django import template
+from django.utils.text import mark_safe
+from cms.models.pagemodel import Page
 from menus.menu_pool import menu_pool
 from classytags.arguments import IntegerArgument, StringArgument, Argument, Flag
 from classytags.helpers import InclusionTag
@@ -58,7 +61,7 @@ class MainMenu(InclusionTag):
     template = 'menu/dummy.html'
 
     options = Options(
-        StringArgument('template', default='bootstrap{}/menu/navbar.html'.format( BOOTSTRAP), required=False),
+        StringArgument('template', default='bootstrap{}/menu/navbar.html'.format(BOOTSTRAP), required=False),
         StringArgument('namespace', default=None, required=False),
         StringArgument('root_id', default=None, required=False),
         IntegerArgument('offset', default=0, required=False),
@@ -113,7 +116,7 @@ class MainMenuBelowId(MainMenu):
     name = 'main_menu_below_id'
     options = Options(
         Argument('root_id', default=None, required=False),
-        StringArgument('template', default='bootstrap{}/menu/navbar.html'.format( BOOTSTRAP), required=False),
+        StringArgument('template', default='bootstrap{}/menu/navbar.html'.format(BOOTSTRAP), required=False),
         IntegerArgument('offset', default=0, required=False),
         IntegerArgument('limit', default=100, required=False),
         StringArgument('namespace', default=None, required=False),
@@ -128,7 +131,7 @@ class MainMenuEmbodyId(MainMenu):
     name = 'main_menu_embody_id'
     options = Options(
         Argument('root_id', default=None, required=False),
-        StringArgument('template', default='bootstrap{}/menu/navbar.html'.format( BOOTSTRAP), required=False),
+        StringArgument('template', default='bootstrap{}/menu/navbar.html'.format(BOOTSTRAP), required=False),
         IntegerArgument('offset', default=0, required=False),
         IntegerArgument('limit', default=100, required=False),
         StringArgument('namespace', default=None, required=False),
@@ -139,9 +142,46 @@ class MainMenuEmbodyId(MainMenu):
 register.tag(MainMenuEmbodyId)
 
 
+class MenuIcon(InclusionTag):
+    name = 'menu_icon'
+    template = 'bootstrap{}/components/menu-icon.html'.format(BOOTSTRAP)
+
+    options = Options(
+        Argument('child_id'),
+        StringArgument('template', default=None, required=False),
+    )
+
+    def get_template(self, context, template=None, **kwargs):
+        return template if template else self.template
+
+    def get_context(self, context, child_id, template):
+        try:
+            cascadepage = Page.objects.get(id=child_id).cascadepage
+        except (Page.DoesNotExist, AttributeError):
+            pass
+        else:
+            icon_font, symbol = cascadepage.icon_font, cascadepage.menu_symbol
+            if icon_font and symbol:
+                prefix = icon_font.config_data.get('css_prefix_text', 'icon-')
+                font_attr = 'class="{}{}"'.format(prefix, symbol)
+                context.update({
+                    'stylesheet_url': icon_font.get_stylesheet_url(),
+                    'icon_font_attrs': mark_safe(font_attr),
+                })
+        return context
+
+    def render_tag(self, context, **kwargs):
+        context.push()
+        output = super(MenuIcon, self).render_tag(context, **kwargs)
+        context.pop()
+        return output
+
+register.tag(MenuIcon)
+
+
 class Paginator(InclusionTag):
     name = 'paginator'
-    template = 'bootstrap{}/components/paginator.html'.format( BOOTSTRAP)
+    template = 'bootstrap{}/components/paginator.html'.format(BOOTSTRAP)
 
     options = Options(
         IntegerArgument('page_range', default=5, required=False),
