@@ -1,7 +1,12 @@
 # CHANGELOG
 -1.1
   * Do no render menu item pointing onto current page in bold.
-  * Add 
+  * Add templatetag `menu_icon`, which in combination with **djangocms-cascade** version 0.19+, renders an icon
+    in front of the menu title.
+  * Add Bootstrap-4 template for templatetag `language_chooser`, which renders a drop-down menu to choose one of
+    the languages configured for **django-CMS**
+  * Add Bootstrap-4 template for templatetag `paginator`, which renders a paginator according to the best given
+    practices.
 
 - 1.0.2
   * Add AngularJS directive for toggling navbar in responsive mode.
