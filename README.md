@@ -5,62 +5,91 @@ Some templates and templatetags to be used with django-CMS and Bootstrap3/Bootst
 Django-CMS is frontend agnostic, which is a good thing. However, in combination with Bootstrap3/4
 the menu structure does not quite fit. This is because Bootstrap3/4 only allows one nested menu level.
 
-Therefore **djangocms-bootstrap** adds a few modified templatetags, which render the existing
-page tree into a menu structure suitable for the navbar in Bootstrap3/4.
-
 [![PyPI](https://img.shields.io/pypi/pyversions/djangocms-bootstrap.svg)]()
 [![PyPI version](https://img.shields.io/pypi/v/djangocms-bootstrap.svg)](https://https://pypi.python.org/pypi/djangocms-bootstrap)
 [![PyPI](https://img.shields.io/pypi/l/djangocms-bootstrap.svg)]()
 [![Twitter Follow](https://img.shields.io/twitter/follow/shields_io.svg?style=social&label=Follow&maxAge=2592000)](https://twitter.com/jacobrief)
 
-## CHANGELOG
-- 1.0.2
-  * Add AngularJS directive for toggling navbar in responsive mode.
 
-- 1.0.1
-  * Fix navbar and menu templates if used in combination with **Bootstrap-4** and jQuery.
+## Rendering a django-CMS menu
 
-- 1.0
-  * In addition to **Bootstrap-3** add support for **Bootstrap-4**. This requires to be more generic, therefore also
-  * rename project from `djangocms-bootstrap3` to `djangocms-bootstrap` in your requirements.
-  * rename Django app from `cms_bootstrap3` to `cms_bootstrap` in your `INSTALLED_APPS`.
-  * rename in existing templates `bootstrap/…` to `bootstrap3/…`.
+**djangocms-bootstrap** adds a few modified templatetags, which render the existing page tree into a
+menu structure, suitable for the navbar in Bootstrap3/4.
 
-- 0.4.2
-  * adopted navbar to work with `angular-ui-bootstrap` version 2.5 and later.
+With the concept of *mobile first*, there is no mouse-over event we could use to open a drop-down
+element showing the sub-menu-items. Instead the user has to click onto the main menu item in order
+to open a drop-down element. Now however, there wouldn't be any more distinction between clicking
+onto a menu-item to either open the drop-down or to click onto the page referenced by that menu
+item.
 
-- 0.4.1
-  * Fix versions in `install_requires` of `setup.py`.
+![Dropdown-Menu](https://raw.githubusercontent.com/jrief/djangocms-bootstrap/master/assets/navbar.png)
 
-- 0.4
-  * Add support for django-CMS version 3.5
-  * Replace `dropdown`, `dropdown-toggle` by `uib-dropdown`, `uib-dropdown-toggle` to be compatible
-    with **angular-ui-bootstrap** version 0.14 and later.
-  * In hamburger menu, replace `<button>`- by `<a>`-tag, because `ng-click` didn't fire properly.
-  * Make use of `uib-collapse` for mobile menus. This adds an animation.
+In this example **djangocms-bootstrap** uses a special templatetag to render the navbar. Here the
+CMS page *Catalog* has three children. Clicking onto *Catalog* in the navbar, opens a drop-down menu,
+which contains another entry for *Catalog*. This is the link which sends us onto the desired page.
+Using this approach we can navigate through a django-CMS page-tree, without having to use the
+mouse-over effect to open drop-down menus.
 
-- 0.3.2
-  * In Navbar, render `get_menu_title` as safe string in order to allow HTML tags in
-    Mune Title.
 
-- 0.3.1
-  * Fix: Use `uib-dropdown` rather than `dropdown` to be compatible with
-    **angular-ui-bootstrap** version 0.14 and later.
+### Usage
 
-- 0.3.0
-  * The templatetags `main_menu`, `main_menu_below_id` and `main_menu_embody_id` now accept
-    two optional values: `offset` (default 0) and `limit` (default 100). With these it is
-    possible, to render only a subset of the menu list.
+Rendering the navbar to show a menu to navigate though the page-tree in **django-CMS**: 
 
-- 0.2.1
-  * Add setup.py to MANIFEST.in
-  
-- 0.2.0
-  * Adopted to Angular-UI-bootstrap version 0.14 and later.
-  * Fixed division issue in paginator for Python3.
+```html
+{% load bootstrap_tags %}
 
-- 0.1.0
-  * Added templatetag `main_menu_embody_id`.
-  * Fixed various Django templates to render the menu.
+<div class="container">
+  <nav class="navbar" role="navigation">
+    <ul class="navbar-nav mr-auto">
+      {% main_menu "bootstrap4/menu/navbar.html" %}
+    </ul>
+  </nav>
+</div>
+```
 
-- 0.0.2 Initial release.
+The templatetag `{% main_menu ... %}` takes an extra parameter, `template`, which can be used to
+fine-tune the rendering of the navigation items. Also note that only CMS pages, where the checkbox
+for "Menu" is active, show up in the navbar.
+
+In Bootstrap-3 and 4, the navigation bar normally is much more than the short snippet shown above.
+Therefore **djangocms-bootstrap** is shipped with two HTML snippets, which do the heavy lifting and
+which shall be included in the base template of your project. By using
+`{% include "bootstrap4/includes/nav-navbar.html" %}` in addition to the navbar, a branding icon
+and a navbar toggle button is rendered, all according to the Bootstrap's style guides.
+
+By appending `with navbar_classes="navbar-light bg-light fixed-top"` to the `include` statement,
+one can style the navbar using the provided CSS classes.
+
+## Chosing the language in django-CMS
+
+If **django-CMS** is configured to run in a multilingual environment, often it is desirable to add
+an option, allowing the user the select his native language. For this purpose **djangocms-bootstrap**
+offers a templatetag `language_chooser` rendering a drop-down menu with all languages available
+through the CMS. To render this select options, add this HTML snippet inside or above of the main
+navbar:
+
+```html
+{% language_chooser "bootstrap4/includes/language-chooser.html" %}
+```
+
+## Render secondary menus
+
+Write the docs.
+
+
+## Rendering a paginator
+
+The Django list view class `django.views.generic.ListView`, by default adds a Paginator object to
+the rendering context, if there is the member attribute `paginate_by = ...`. To render this
+paginator following Bootstrap's best practices, add this HTML snippet above or below the list of
+items you are going to render:
+
+```html
+{% load bootstrap_tags %}
+
+<nav aria-label="Paginator example">{% paginator %}</nav>
+```
+
+By prepending `{% with paginator_classes="pagination justify-content-center" %}` to the `paginator`
+statement, one can style the paginator using the provided CSS classes. Don't forget to append
+`{% endwith %}` afterwards.
