@@ -60,6 +60,7 @@ and a navbar toggle button is rendered, all according to the Bootstrap's style g
 By appending `with navbar_classes="navbar-light bg-light fixed-top"` to the `include` statement,
 one can style the navbar using the provided CSS classes.
 
+
 ## Chosing the language in django-CMS
 
 If **django-CMS** is configured to run in a multilingual environment, often it is desirable to add
@@ -71,6 +72,9 @@ navbar:
 ```html
 {% language_chooser "bootstrap4/includes/language-chooser.html" %}
 ```
+
+![Language Chooser](https://raw.githubusercontent.com/jrief/djangocms-bootstrap/master/assets/language-chooser.png)
+
 
 ## Render secondary menus
 
@@ -89,6 +93,8 @@ items you are going to render:
 
 <nav aria-label="Paginator example">{% paginator %}</nav>
 ```
+
+![Paginator](https://raw.githubusercontent.com/jrief/djangocms-bootstrap/master/assets/paginator.png)
 
 By prepending `{% with paginator_classes="pagination justify-content-center" %}` to the `paginator`
 statement, one can style the paginator using the provided CSS classes. Don't forget to append
