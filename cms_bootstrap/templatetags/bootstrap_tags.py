@@ -184,7 +184,7 @@ class Paginator(InclusionTag):
     template = 'bootstrap{}/components/paginator.html'.format(BOOTSTRAP)
 
     options = Options(
-        IntegerArgument('page_range', default=5, required=False),
+        IntegerArgument('page_range', default=10, required=False),
         StringArgument('template', default=None, required=False),
     )
 
@@ -196,9 +196,10 @@ class Paginator(InclusionTag):
         page_range -= 1
         template = template or self.template
         context.update({'template': template})
+        context.setdefault('paginator_classes', 'pagination')
         paginator = context.get('paginator') or getattr(context.get('request'), 'paginator', None)
         if paginator:
-            first_page = max(1, min(current_page - page_range / 2, paginator.num_pages - page_range))
+            first_page = max(1, min(int(current_page - page_range / 2), paginator.num_pages - page_range))
             last_page = min(first_page + page_range, paginator.num_pages)
             context.update({
                 'show_paginator': paginator.num_pages > 1,
