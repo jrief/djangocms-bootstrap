@@ -26,7 +26,7 @@
 		{% endcomment %}
 		{% for grandchild in child.children %}
 		<a class="dropdown-item{% if grandchild.selected %} active{% endif %}" href="{{ grandchild.attr.redirect_url|default:grandchild.get_absolute_url }}" role="menuitem">
-			{% menu_icon child.id %}
+			{% menu_icon grandchild.id %}
 			{{ grandchild.get_menu_title|safe }}
 		</a>
 		{% endfor %}
