@@ -3,7 +3,11 @@ from __future__ import unicode_literals
 
 from django.conf import settings
 from django import template
-from django.utils.text import mark_safe
+from django import VERSION as DJANGO_VERSION
+if DJANGO_VERSION < (2, 0):
+   from django.utils.text import mark_safe
+else:
+   from django.utils.safestring import mark_safe
 from cms.models.pagemodel import Page
 from menus.menu_pool import menu_pool
 from classytags.arguments import IntegerArgument, StringArgument, Argument, Flag
