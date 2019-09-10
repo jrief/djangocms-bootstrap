@@ -1,4 +1,7 @@
 # CHANGELOG
+  ** unreleased
+  * Replace 'mark_safe' modules path by 'from django.utils.safestring' for compatibilty Django 2.0
+  
 -1.1
   * Do no render menu item pointing onto current page in bold.
   * Add templatetag `menu_icon`, which in combination with **djangocms-cascade** version 0.19+, renders an icon
