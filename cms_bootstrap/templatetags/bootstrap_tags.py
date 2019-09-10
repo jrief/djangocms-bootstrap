@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django import template
 from django import VERSION as DJANGO_VERSION
-if DJANGO_VERSION < (2, 0):
+if DJANGO_VERSION < (1, 11):
    from django.utils.text import mark_safe
 else:
    from django.utils.safestring import mark_safe
