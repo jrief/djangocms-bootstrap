@@ -1,11 +1,13 @@
 # CHANGELOG
-  ** unreleased
-  * Replace 'mark_safe' modules path by 'from django.utils.safestring' for compatibilty Django 2.0.
   
--1.1
-  * Adopt to django-cms version 3.6.
+- 1.1.2
+  * Fix external dependencies to latest available versions.
 
--1.1
+- 1.1.1
+  * Replace `mark_safe` modules path by `from django.utils.safestring` for compatibility in Django 2.0.
+ 
+- 1.1
+  * Adopt to django-cms version 3.6.
   * Do no render menu item pointing onto current page in bold.
   * Add templatetag `menu_icon`, which in combination with **djangocms-cascade** version 0.19+, renders an icon
     in front of the menu title.
