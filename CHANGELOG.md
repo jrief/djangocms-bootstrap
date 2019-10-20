@@ -1,4 +1,7 @@
 # CHANGELOG
+  ** unreleased
+  * Replace 'mark_safe' modules path by 'from django.utils.safestring' for compatibilty Django 2.0.
+  
 -1.1
   * Adopt to django-cms version 3.6.
 
