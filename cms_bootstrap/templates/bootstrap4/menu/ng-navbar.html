@@ -2,7 +2,7 @@
 {% spaceless %}
 {% with item_class=item_class|default:"nav-item" %}
 {% for child in children %}
-	{% if child.is_leaf_node %}
+	{% if child.is_leaf_node or child.children|length == 0%}
 <li class="{% if child.selected %}active {% endif %}{{ item_class }}">
 	<a class="nav-link" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">
 		{% menu_icon child.id %}
